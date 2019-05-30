@@ -22,7 +22,7 @@ func Lex(r io.Reader) (tokens []Token, err error) {
 				return nil, err
 			}
 			tokens = append(tokens, t)
-			column = t.Column() + len(t.Value())
+			column = t.Position().Column() + len(t.Value())
 			text, trimmed = trimLeadingSpaces(text[len(t.Value()):])
 		}
 	}
@@ -36,8 +36,7 @@ func nextToken(text string, line int, column int) (Token, error) {
 			return token{
 				value:     value,
 				tokenType: tokenType,
-				line:      line,
-				column:    column,
+				position:  NewPosition(line, column),
 			}, nil
 		}
 	}
