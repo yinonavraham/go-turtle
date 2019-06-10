@@ -10,50 +10,50 @@ import (
 )
 
 func TestBuiltInsAndValueExpressions(t *testing.T) {
-	//    0         1         2         3         4
-	//    01234567890123456789012345678901234567890
-	// 1: FORWARD 7 BACK 16   |         |         |
-	// 2: RIGHT 90 LEFT 270   |         |         |
-	// 3: HOME      |         |         |         |
-	// 4: REPEAT :T [FD :X RT :Y]       |         |
-	// 5: PENUP PENDOWN SHOWTURTLE HIDETURTLE     |
-	// 6: CLEAN CLEARSCREEN   |         |         |
+	//   0         1         2         3         4
+	//    1234567890123456789012345678901234567890
+	// 1: FORWARD 7 BACK 16  |         |         |
+	// 2: RIGHT 90 LEFT 270  |         |         |
+	// 3: HOME     |         |         |         |
+	// 4: REPEAT :T [FD :X RT :Y]      |         |
+	// 5: PENUP PENDOWN SHOWTURTLE HIDETURTLE    |
+	// 6: CLEAN CLEARSCREEN  |         |         |
 	script := Script{
 		Commands: []Command{
 			// 1: FORWARD 7 BACK 16   |         |         |
 			Forward{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 1, Column: 0}, EndPosition: lexer.Position{Line: 1, Column: 8}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 1, Column: 1}, EndPosition: lexer.Position{Line: 1, Column: 9}},
 				Steps:    IntegerExpr{Value: 7},
 			},
 			Back{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 1, Column: 10}, EndPosition: lexer.Position{Line: 1, Column: 16}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 1, Column: 11}, EndPosition: lexer.Position{Line: 1, Column: 17}},
 				Steps:    IntegerExpr{Value: 16},
 			},
 			// 2: RIGHT 90 LEFT 270   |         |         |
 			Right{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 2, Column: 0}, EndPosition: lexer.Position{Line: 2, Column: 7}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 2, Column: 1}, EndPosition: lexer.Position{Line: 2, Column: 8}},
 				Angle:    IntegerExpr{Value: 90},
 			},
 			Left{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 2, Column: 0}, EndPosition: lexer.Position{Line: 2, Column: 16}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 2, Column: 10}, EndPosition: lexer.Position{Line: 2, Column: 17}},
 				Angle:    IntegerExpr{Value: 270},
 			},
 			// 3: HOME      |         |         |         |
 			Home{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 3, Column: 0}, EndPosition: lexer.Position{Line: 3, Column: 3}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 3, Column: 1}, EndPosition: lexer.Position{Line: 3, Column: 4}},
 			},
 			// 4: REPEAT :T [FD :X RT :Y]       |         |
 			Repeat{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 0}, EndPosition: lexer.Position{Line: 4, Column: 22}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 1}, EndPosition: lexer.Position{Line: 4, Column: 23}},
 				Times:    VariableExpr{Name: ":T"},
 				Commands: CommandSequenceExpr{
 					Commands: []Command{
 						Forward{
-							ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 11}, EndPosition: lexer.Position{Line: 4, Column: 15}},
+							ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 12}, EndPosition: lexer.Position{Line: 4, Column: 16}},
 							Steps:    VariableExpr{Name: ":X"},
 						},
 						Back{
-							ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 17}, EndPosition: lexer.Position{Line: 4, Column: 21}},
+							ItemBase: ItemBase{StartPosition: lexer.Position{Line: 4, Column: 18}, EndPosition: lexer.Position{Line: 4, Column: 22}},
 							Steps:    VariableExpr{Name: ":Y"},
 						},
 					},
@@ -61,23 +61,23 @@ func TestBuiltInsAndValueExpressions(t *testing.T) {
 			},
 			// 5: PENUP PENDOWN SHOWTURTLE HIDETURTLE     |
 			PenUp{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 0}, EndPosition: lexer.Position{Line: 5, Column: 4}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 1}, EndPosition: lexer.Position{Line: 5, Column: 5}},
 			},
 			PenDown{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 6}, EndPosition: lexer.Position{Line: 5, Column: 12}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 7}, EndPosition: lexer.Position{Line: 5, Column: 13}},
 			},
 			ShowTurtle{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 14}, EndPosition: lexer.Position{Line: 5, Column: 23}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 15}, EndPosition: lexer.Position{Line: 5, Column: 24}},
 			},
 			HideTurtle{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 25}, EndPosition: lexer.Position{Line: 5, Column: 34}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 5, Column: 26}, EndPosition: lexer.Position{Line: 5, Column: 35}},
 			},
 			// 6: CLEAN CLEARSCREEN   |         |         |
 			Clean{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 6, Column: 0}, EndPosition: lexer.Position{Line: 6, Column: 4}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 6, Column: 1}, EndPosition: lexer.Position{Line: 6, Column: 5}},
 			},
 			ClearScreen{
-				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 6, Column: 6}, EndPosition: lexer.Position{Line: 6, Column: 16}},
+				ItemBase: ItemBase{StartPosition: lexer.Position{Line: 6, Column: 7}, EndPosition: lexer.Position{Line: 6, Column: 17}},
 			},
 		},
 	}
