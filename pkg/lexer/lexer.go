@@ -22,8 +22,8 @@ func Lex(r io.Reader) (tokens []Token, err error) {
 				return nil, err
 			}
 			tokens = append(tokens, t)
-			column = t.Position().Column() + len(t.Value())
-			text, trimmed = trimLeadingSpaces(text[len(t.Value()):])
+			column = t.Position.Column + len(t.Value)
+			text, trimmed = trimLeadingSpaces(text[len(t.Value):])
 		}
 	}
 	return tokens, nil
@@ -33,14 +33,14 @@ func nextToken(text string, line int, column int) (Token, error) {
 	for _, tokenType := range tokenTypesByOrder {
 		if values := tokenTypeToRegex[tokenType].FindStringSubmatch(text); len(values) >= 2 {
 			value := values[1]
-			return token{
-				value:     value,
-				tokenType: tokenType,
-				position:  NewPosition(line, column),
+			return Token{
+				Value:     value,
+				TokenType: tokenType,
+				Position:  NewPosition(line, column),
 			}, nil
 		}
 	}
-	return nil, LexError{Text: text, Line: line, Column: column}
+	return Token{}, LexError{Text: text, Line: line, Column: column}
 }
 
 type LexError struct {

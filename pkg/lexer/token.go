@@ -1,12 +1,5 @@
 package lexer
 
-type Token interface {
-	Value() string
-	Type() TokenType
-	Line() int
-	Column() int
-}
-
 type TokenType string
 
 const (
@@ -22,29 +15,12 @@ const (
 	TokenTypeLiteral = "literal"
 )
 
-type token struct {
-	value     string
-	tokenType TokenType
-	line      int
-	column    int
+type Token struct {
+	Value     string
+	TokenType TokenType
+	Position  Position
 }
 
-func (t token) Value() string {
-	return t.value
-}
-
-func (t token) Type() TokenType {
-	return t.tokenType
-}
-
-func (t token) Line() int {
-	return t.line
-}
-
-func (t token) Column() int {
-	return t.column
-}
-
-func (t token) String() string {
-	return t.value
+func (t Token) String() string {
+	return t.Value
 }

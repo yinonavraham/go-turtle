@@ -82,7 +82,7 @@ func tokensAsString(tokens []lexer.Token) string {
 	}
 	tokenStrings := make([]string, len(tokens))
 	for i, t := range tokens {
-		tokenStrings[i] = fmt.Sprintf("%d,%d,%s,%s", t.Position().Line(), t.Position().Column(), t.Value(), t.Type())
+		tokenStrings[i] = fmt.Sprintf("%d,%d,%s,%s", t.Position.Line, t.Position.Column, t.Value, t.TokenType)
 	}
 	return strings.Join(tokenStrings, "~")
 }
