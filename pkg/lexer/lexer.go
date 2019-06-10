@@ -34,9 +34,9 @@ func nextToken(text string, line int, column int) (Token, error) {
 		if values := tokenTypeToRegex[tokenType].FindStringSubmatch(text); len(values) >= 2 {
 			value := values[1]
 			return Token{
-				Value:     value,
-				TokenType: tokenType,
-				Position:  NewPosition(line, column),
+				Value:    value,
+				Type:     tokenType,
+				Position: NewPosition(line, column),
 			}, nil
 		}
 	}

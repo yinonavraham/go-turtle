@@ -16,9 +16,9 @@ const (
 )
 
 type Token struct {
-	Value     string
-	TokenType TokenType
-	Position  Position
+	Value    string
+	Type     TokenType
+	Position Position
 }
 
 func (t Token) String() string {
