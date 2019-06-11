@@ -9,6 +9,7 @@ type Expr interface {
 //###############################################
 
 type CommandSequenceExpr struct {
+	ItemBase
 	Commands []Command
 }
 
@@ -25,6 +26,7 @@ type ValueExpr interface {
 //###############################################
 
 type IntegerExpr struct {
+	ItemBase
 	Value int
 }
 
@@ -35,6 +37,7 @@ func (e IntegerExpr) Accept(v Visitor) {
 //###############################################
 
 type VariableExpr struct {
+	ItemBase
 	Name string
 }
 
