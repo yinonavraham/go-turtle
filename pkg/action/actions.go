@@ -5,18 +5,27 @@ import (
 	"github.com/yinonavraham/go-turtle/pkg/parser/ast"
 )
 
+// Action base interface
 type Action interface {
 	fmt.Stringer
+	// The name of the action
 	ActionName() string
 }
 
 const (
-	PenDown     = simpleAction(ast.CommandPenDown)
-	PenUp       = simpleAction(ast.CommandPenUp)
-	ShowTurtle  = simpleAction(ast.CommandShowTurtle)
-	HideTurtle  = simpleAction(ast.CommandHideTurtle)
-	Home        = simpleAction(ast.CommandHome)
-	Clean       = simpleAction(ast.CommandClean)
+	// PenDown action
+	PenDown = simpleAction(ast.CommandPenDown)
+	// PenUp action
+	PenUp = simpleAction(ast.CommandPenUp)
+	// ShowTurtle action
+	ShowTurtle = simpleAction(ast.CommandShowTurtle)
+	// HideTurtle action
+	HideTurtle = simpleAction(ast.CommandHideTurtle)
+	// Home action
+	Home = simpleAction(ast.CommandHome)
+	// Clean action
+	Clean = simpleAction(ast.CommandClean)
+	// ClearScreen action
 	ClearScreen = simpleAction(ast.CommandClearScreen)
 )
 
@@ -42,11 +51,14 @@ func (a simpleAction) String() string {
 	return a.ActionName()
 }
 
+// MoveAction interface - for any move action (forward, back)
 type MoveAction interface {
 	Action
+	// The number of steps to move. Positive number moves forward, negative number of steps means move back
 	Steps() int
 }
 
+// MoveForward creates an Action to move forward a given number of steps
 func MoveForward(steps int) MoveAction {
 	return move{
 		name:  ast.CommandForward,
@@ -54,6 +66,7 @@ func MoveForward(steps int) MoveAction {
 	}
 }
 
+// MoveBack creates an Action to move back a given number of steps
 func MoveBack(steps int) MoveAction {
 	return move{
 		name:  ast.CommandBack,
@@ -78,11 +91,15 @@ func (a move) String() string {
 	return fmt.Sprintf("%s %d", a.name, a.steps)
 }
 
+// TurnAction interface - for any turn action (right, left)
 type TurnAction interface {
 	Action
+	// The angle (degrees) to turn. Positive number turns right (clockwise), negative number of degrees means turn left
+	// (counter clockwise).
 	Angle() int
 }
 
+// TurnRight creates an Action to turn right in a given angle (degrees)
 func TurnRight(angle int) TurnAction {
 	return turn{
 		name:  ast.CommandRight,
@@ -90,6 +107,7 @@ func TurnRight(angle int) TurnAction {
 	}
 }
 
+// TurnLeft creates an Action to turn left in a given angle (degrees)
 func TurnLeft(angle int) TurnAction {
 	return turn{
 		name:  ast.CommandLeft,

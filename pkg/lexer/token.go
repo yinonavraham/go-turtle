@@ -1,23 +1,28 @@
 package lexer
 
+// TokenType represents the different types of tokens the lexer identifies
 type TokenType string
 
 const (
-	//identifier: names, built-in and custom (variables, procedures, ...)
+	// TokenTypeIdentifier : names, built-in and custom (variables, procedures, ...)
 	TokenTypeIdentifier = "identifier"
-	//comment: line, block (";this is a comment")
+	// TokenTypeComment : line, block (";this is a comment")
 	TokenTypeComment = "comment"
-	//separator (also known as punctuators): punctuation characters and paired-delimiters ("[", "]", ..)
+	// TokenTypeSeparator (also known as punctuators): punctuation characters and paired-delimiters ("[", "]", ..)
 	TokenTypeSeparator = "separator"
-	//operator: symbols that operate on arguments and produce results ("+", "-", "*", "/", ...)
+	// TokenTypeOperator : symbols that operate on arguments and produce results ("+", "-", "*", "/", ...)
 	TokenTypeOperator = "operator"
-	//literal: numeric, logical, textual, reference literals
+	// TokenTypeLiteral : numeric, logical, textual, reference literals
 	TokenTypeLiteral = "literal"
 )
 
+// Token is a single token identified in the text by the lexer
 type Token struct {
-	Value    string
-	Type     TokenType
+	// Value is the token string value
+	Value string
+	// Type is the type of the token
+	Type TokenType
+	// Position is the start position of the token in the text
 	Position Position
 }
 

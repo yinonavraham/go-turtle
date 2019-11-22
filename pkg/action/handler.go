@@ -2,6 +2,10 @@ package action
 
 import "fmt"
 
+// Handle a given action using the provided Handler.
+//
+// Returns an error in case handling failed. If the given action name is unknown (not supported), the error is of type
+// ErrUnknownAction.
 func Handle(action Action, handler Handler) error {
 	switch action {
 	case PenDown:
@@ -23,20 +27,21 @@ func Handle(action Action, handler Handler) error {
 		case MoveAction:
 			if a.Steps() < 0 {
 				return handler.MoveBack(-a.Steps())
-			} else {
-				return handler.MoveForward(a.Steps())
 			}
+			return handler.MoveForward(a.Steps())
 		case TurnAction:
 			if a.Angle() < 0 {
 				return handler.TurnLeft(-a.Angle())
-			} else {
-				return handler.TurnRight(a.Angle())
 			}
+			return handler.TurnRight(a.Angle())
 		}
 	}
 	return ErrUnknownAction(fmt.Sprintf("unknown action: %s", action.ActionName()))
 }
 
+// Handler interface, used for handling actions.
+//
+// See: Handle(Action, Handler) error
 type Handler interface {
 	PenDown() error
 	PenUp() error
@@ -53,6 +58,7 @@ type Handler interface {
 
 var _ error = ErrUnknownAction("")
 
+// ErrUnknownAction returned by the Handle function in case the given action name is not supported.
 type ErrUnknownAction string
 
 func (e ErrUnknownAction) Error() string {
