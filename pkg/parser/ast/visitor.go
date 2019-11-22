@@ -1,9 +1,11 @@
 package ast
 
+// Visitable is a common interface for all items which the Visitor can visit
 type Visitable interface {
 	Accept(visitor Visitor)
 }
 
+// Visitor is an interface for defining all the possible item types a visitor can visit
 type Visitor interface {
 	VisitScript(script Script)
 	VisitForward(forward Forward)

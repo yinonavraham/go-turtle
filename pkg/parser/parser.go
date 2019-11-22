@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+// Parse the text from the provided reader into a LOGO script AST.
+//
+// Returns an error in case parsing (or lexing) failed.
 func Parse(r io.Reader) (ast.Script, error) {
 	p := parser{}
 	return p.Parse(r)

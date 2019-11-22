@@ -7,6 +7,9 @@ import (
 	"regexp"
 )
 
+// Lex the content from the provided reader.
+//
+// Returns the tokens from the content, or an error if failed.
 func Lex(r io.Reader) (tokens []Token, err error) {
 	tokens = make([]Token, 0)
 	scanner := bufio.NewScanner(r)
@@ -43,6 +46,8 @@ func nextToken(text string, line int, column int) (Token, error) {
 	return Token{}, LexError{Text: text, Line: line, Column: column}
 }
 
+// LexError is returned by the Lex function in case lexing failed. The error contains the details on the text and the
+// position where lexing failed.
 type LexError struct {
 	Text         string
 	Line, Column int

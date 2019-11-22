@@ -11,6 +11,9 @@ type printer struct {
 	err   error
 }
 
+// Print the provided Visitable argument to the given Writer.
+//
+// This will use a script printer to write the script text
 func Print(w io.Writer, v Visitable) (int, error) {
 	p := &printer{w: w}
 	v.Accept(p)
